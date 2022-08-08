@@ -15,6 +15,9 @@ It should specify the input data files and the spatiotemporal resolution of the 
 The format can be easily understood by looking at the sample files.
 
 An annotated example of INI file is below:
+<details>
+<summary>Click here to see the code</summary>
+
 ```ini
 [Data]
 name = ngsim_trajectory
@@ -63,11 +66,17 @@ dx = 100
 number_of_lanes = 5
 ;not essential
 ```
+</details>
 
 ### Code version: Details
 
 FreeTSE module can be used with the following code:
+<details>
+<summary>Click here to see the code</summary>
+
 ```python
+from FreeTSE import *
+
 tse = FreeTSE()
 tse.set_scenario(
 	name = "ngsim_trajectory",	#name of the scenario
@@ -110,6 +119,7 @@ print("flow", q)
 print("density", k)
 print("speed", v)
 ```
+</details>
 
 Files: 
 - `FreeTSE.py`: The main code
@@ -170,7 +180,7 @@ t,  x,   q
 It estimates flow and density in the entire time-space domain based on speed data collected by connected vehicles and flow (or density) data collected by limited number of detectors.
 It utilizes a parameter-free data-driven traffic flow model based on the conservation law and Kalman filtering and smoothing.
 For the details, see
-- Seo, T. Calibration-free traffic state estimation method using single detector and connected vehicles with Kalman filtering and RTS smoothing. In IEEE 23rd International Conference on Intelligent Transportation Systems, Web conference, 2020.
+- Seo, T. Calibration-free traffic state estimation method using single detector and connected vehicles with Kalman filtering and RTS smoothing. In IEEE 23rd International Conference on Intelligent Transportation Systems, Web conference, 2020. [link](http://dx.doi.org/10.1109/ITSC45102.2020.9294229)
 
 ## Credits/Acknowledgements
 
