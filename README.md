@@ -2,6 +2,10 @@
 
 Calibration-free traffic state estimation method using detectors and connected vehicles data
 
+## Executable version with manual
+
+[Download](https://github.com/toruseo/FreeTSE/releases/download/v1.0.0/FreeTSE_executable.zip)
+
 ## How to use
 
 - Executable version (for Windows, non-Python user): Run `run.bat` in the executable version.
