@@ -131,6 +131,7 @@ Files:
 ## Data formats
 
 The unit of variables must be based on seconds and meters (e.g., the speed must be in m/s and the flow must be in vehicles/s).
+The numerical value of the position should be set so that the upstream position is represented by a smaller value.
 
 ### Speed data from connected vehicles (CSV)
 
