@@ -63,6 +63,7 @@ dt = 4
 ;temporal resolution of estimation
 dx = 100
 ;spatial resolution of estimation
+;it is very preferable that dx/dt is almost equal  to the maximum speed of the traffic
 number_of_lanes = 5
 ;not essential
 ```
