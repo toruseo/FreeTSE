@@ -2,23 +2,41 @@
 
 Calibration-free traffic state estimation method using detectors and connected vehicles data
 
+## Installation
+
+To install the FreeTSE package, navigate to the root directory of this repository and run:
+
+```bash
+pip install .
+```
+
+For development purposes, you can install it in editable mode:
+
+```bash
+pip install -e .
+```
+Make sure you have pip installed. If you also want to run tests, install the development dependencies:
+```bash
+pip install -e .[dev]
+```
+
 ## Executable version with manual
 
 [Download](https://github.com/toruseo/FreeTSE/releases/download/v1.0.0/FreeTSE_executable.zip)
 
-## How to use
+## Usage
 
 - Executable version (for Windows, non-Python user): Run `run.bat` in the executable version.
-	- Select an INI file that defines an estimation scenario.
-- Code version (for Python user): Run or import `FreeTSE.py`.
+	- Select an INI file that defines an estimation scenario. The sample INI files (e.g., `ngsim_trajectories.ini`) are located within the `FreeTSE/dat` directory if you have the source code, or packaged with the executable.
+- Code version (for Python user): Import and use the `FreeTSE` class from the package.
 
 ### Executable version: Details
 
 An estimation scenario should be defined by an INI file.
 It should specify the input data files and the spatiotemporal resolution of the estimation.
-The format can be easily understood by looking at the sample files.
+The format can be easily understood by looking at the sample files (e.g., in `FreeTSE/dat/`).
 
-An annotated example of INI file is below:
+An annotated example of INI file is below (paths may need adjustment based on your setup or if using the installed package's data):
 <details>
 <summary>Click here to see the code</summary>
 
@@ -26,7 +44,7 @@ An annotated example of INI file is below:
 [Data]
 name = ngsim_trajectory
 ;name of the scenario
-speed = ./dat/ngsim_sampled_trajectories.csv
+speed = path/to/your/ngsim_sampled_trajectories.csv ; Adjusted path
 ;path to speed data
 speed_label_t = t
 ;column name for time
@@ -34,7 +52,7 @@ speed_label_x = x
 ;column name for position
 speed_label_v = v
 ;column name for speed
-flow = ./dat/ngsim_grid_flow_200m.csv
+flow = path/to/your/ngsim_grid_flow_200m.csv ; Adjusted path
 ;path to flow data. if it does not exist, specify "None"
 flow_label_t = t
 flow_label_x = x
@@ -42,7 +60,7 @@ flow_label_q = q
 
 [GroundTruth]
 ;This section specify ground truth data for validation. if it does not exist, delete it.
-true_flow = ./dat/ngsim_grid_flow_400m.csv
+true_flow = path/to/your/ngsim_grid_flow_400m.csv ; Adjusted path
 ;path to ground truth flow data for validation
 flow_label_t = t
 flow_label_x = x
@@ -75,14 +93,17 @@ number_of_lanes = 5
 
 ### Code version: Details
 
-FreeTSE module can be used with the following code:
+The FreeTSE module can be used with the following code. Ensure you provide correct paths to your data files. Sample data files are located in `FreeTSE/dat` in the source repository.
+
 <details>
 <summary>Click here to see the code</summary>
 
 ```python
-from FreeTSE import *
+from FreeTSE.FreeTSE import FreeTSE # Updated import
 
 tse = FreeTSE()
+# Example: Using paths relative to your script, or absolute paths
+# The sample data from the repository is in FreeTSE/dat/
 tse.set_scenario(
 	name = "ngsim_trajectory",	#name of the scenario
 	dt = 4,		#temporal resolution of estimation. unit: seconds
@@ -92,7 +113,7 @@ tse.set_scenario(
 	minx = 0,	#upstream-end position
 	maxx = 500,	#downstream-end position
 	number_of_lanes = 5,	#not essential
-	speed_data_name = "./dat/ngsim_sampled_trajectories.csv",	#path to speed data
+	speed_data_name = "path/to/your/ngsim_sampled_trajectories.csv", # Provide path to your data
 	speed_label_t = "t",	#column name for time
 	speed_label_x = "x",	#column name for position
 	speed_label_v = "v",	#column name for speed
@@ -100,7 +121,7 @@ tse.set_scenario(
 	density_label_t = "t",
 	density_label_x = "x",
 	density_label_k = "k",
-	flow_data_name = "./dat/ngsim_grid_flow_200m.csv",	#path to flow data. if it does not exist, specify "None"
+	flow_data_name = "path/to/your/ngsim_grid_flow_200m.csv", # Provide path to your data
 	flow_label_t = "t",
 	flow_label_x = "x",
 	flow_label_q = "q",
@@ -108,7 +129,7 @@ tse.set_scenario(
 	true_density_label_t = "t",
 	true_density_label_x = "x",
 	true_density_label_k = "k",
-	flow_dat_true_name = "./dat/ngsim_grid_flow_400m.csv",	#path to ground truth flow data for validation. if it does not exist, specify "None"
+	flow_dat_true_name = "path/to/your/ngsim_grid_flow_400m.csv", # Provide path to your data
 	true_flow_label_t = "t",
 	true_flow_label_x = "x",
 	true_flow_label_q = "q"
@@ -126,12 +147,13 @@ print("speed", v)
 ```
 </details>
 
-Files: 
-- `FreeTSE.py`: The main code
-- `dat/*.ini`: Sample scenarios
-- `dat/*.csv`: Sample datasets
-- `gui.py`: GUI to run `FreeTSE.py`
-- `util.py`: Miscellaneous utilities
+Files (in the source repository):
+- `FreeTSE/FreeTSE.py`: The main code for the TSE algorithm.
+- `FreeTSE/gui.py`: GUI to run `FreeTSE.py` (Note: GUI usage might need adjustments after packaging).
+- `FreeTSE/util.py`: Miscellaneous utilities.
+- `FreeTSE/dat/*.ini`: Sample scenarios.
+- `FreeTSE/dat/*.csv`: Sample datasets.
+- `tests/`: Contains integration and unit tests.
 
 ## Data formats
 
@@ -190,9 +212,9 @@ For the details, see
 
 ## Credits/Acknowledgements
 
-- The sample files are based on the NGSIM dataset
-- The executable version includes the embeddable version of Python
-- Part of this work was financially supported by the Japan Society for the Promotion of Science (KAKENHI Grant-in-Aid for Young Scientists (B) 16K18164, KAKENHI Grant-in-Aid for Scientific Research (B) 20H02267)
+- The sample files are based on the NGSIM dataset. These are located in `FreeTSE/dat` in the source repository.
+- The executable version includes the embeddable version of Python.
+- Part of this work was financially supported by the Japan Society for the Promotion of Science (KAKENHI Grant-in-Aid for Young Scientists (B) 16K18164, KAKENHI Grant-in-Aid for Scientific Research (B) 20H02267).
 
 ## Further reading
 

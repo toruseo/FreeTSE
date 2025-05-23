@@ -1,5 +1,5 @@
 #coding:utf-8
-from util import *
+from .util import *
 
 import random as pyrand
 from pylab import *
@@ -786,46 +786,3 @@ class FreeTSE:
 						savefig("%s_timeseries_%d.png"%(fname, x))
 		
 		show()
-
-if __name__ == "__main__":
-	tse = FreeTSE()
-	tse.set_scenario(
-		name = "ngsim_trajectory",
-		dt = 4,
-		dx = 100,
-		mint = 0,
-		maxt = 800,
-		minx = 0,
-		maxx = 500,
-		number_of_lanes = 5,
-		speed_data_name = "./dat/ngsim_sampled_trajectories.csv",
-		speed_label_t = "t",
-		speed_label_x = "x",
-		speed_label_v = "v",
-		density_data_name = None,
-		density_label_t = "t",
-		density_label_x = "x",
-		density_label_k = "k",
-		flow_data_name = "./dat/ngsim_grid_flow_200m.csv",
-		flow_label_t = "t",
-		flow_label_x = "x",
-		flow_label_q = "q",
-		density_dat_true_name = None,
-		true_density_label_t = "t",
-		true_density_label_x = "x",
-		true_density_label_k = "k",
-		flow_dat_true_name = "./dat/ngsim_grid_flow_400m.csv",
-		true_flow_label_t = "t",
-		true_flow_label_x = "x",
-		true_flow_label_q = "q"
-	)
-	tse.estimation()
-	tse.accuracy_evaluation()
-	fname = "res_test"
-	tse.save_results(fname+".csv")
-	tse.visualize(smooth=1, true=1, speed=1, timeseries=1, inputdata=1, save=1, fname=fname)
-	
-	q, k, v = tse.get_results()
-	print("flow", q)
-	print("density", k)
-	print("speed", v)
