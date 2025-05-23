@@ -2,9 +2,8 @@ name: Python Test and Artifact Upload
 
 on:
   push:
-    branches: [ main, master ] # Adjust if your main branch has a different name
   pull_request:
-    branches: [ main, master ] # Adjust if your main branch has a different name
+  workflow_dispatch:
 
 jobs:
   build:
