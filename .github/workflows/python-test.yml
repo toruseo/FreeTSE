@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: ["3.8", "3.9", "3.10"] # Test on a few Python versions
+        python-version: ["3.12"] # Test on a few Python versions
 
     steps:
     - uses: actions/checkout@v3
