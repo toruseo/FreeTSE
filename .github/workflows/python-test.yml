@@ -14,10 +14,10 @@ jobs:
         python-version: ["3.12"] # Test on a few Python versions
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
@@ -33,7 +33,7 @@ jobs:
 
     - name: Upload test outputs
       if: always() # Always run this step to upload artifacts, even if tests fail, to help debugging
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: test-outputs-python-${{ matrix.python-version }}
         path: test_output/
